@@ -1,3 +1,3 @@
 # hadoop-mapreduce-examples
 
-online edited agaib
+online edited
