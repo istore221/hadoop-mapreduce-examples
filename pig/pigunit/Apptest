@@ -1,0 +1,30 @@
+package com.pig.helloworld.my_pig;
+
+
+import org.apache.pig.pigunit.PigTest;
+import org.junit.Test;
+
+public class AppTest  
+{
+
+	@Test
+    public void testTextInput() throws Exception  {
+		
+		 PigTest test = new PigTest("src/test/resources/demo.pig");
+		 
+		 String[] output = {
+                 "(F,{(Mary,UK,F,baseball,5.5),(Ellen,UK,F,football,5.0)})",
+                 "(M,{(Steve,US,M,football,6.5),(Alex,US,M,football,5.5),(Ted,UK,M,football,6.0)})"
+		 };
+		 
+		 
+		 
+		 test.assertOutput("data", output);
+
+			      
+	 }
+
+
+	    
+}
+
