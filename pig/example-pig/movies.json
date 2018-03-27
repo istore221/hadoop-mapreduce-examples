@@ -1,0 +1,3 @@
+{"movie_id":100,"title":"Star Wars","Tags":[{"name":"Horror"},{"name":"Action"}],"Director":{"id":1,"name":"john","age":21}}
+{"movie_id":200,"title":"Final Destination","Tags":[{"name":"Horror"},{"name":"Thriller"}],"Director":{"id":2,"name":"smith","age":28}}
+{"movie_id":300,"title":"Finding Nemo","Tags":[{"name":"Animation"},{"name":"Thriller"}],"Director":{"id":1,"name":"john","age":21}}
