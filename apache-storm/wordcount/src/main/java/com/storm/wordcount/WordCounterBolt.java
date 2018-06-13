@@ -23,7 +23,7 @@ public class WordCounterBolt implements IRichBolt {
 	 * We will show the word counters
 	 */
 	public void cleanup() {
-		System.out.println(" -- Word Counter ["+ name + "-"+id +"] --> "+this.id);
+		System.out.println(" -- Word Counter Bolt [ Component Id = "+ name + " - Task Id = "+id +"]");
 		for(Map.Entry<String, Integer> entry:counters.entrySet()){
 			System.out.println(entry.getKey()+" : " + entry.getValue());
 		}
@@ -57,6 +57,7 @@ public class WordCounterBolt implements IRichBolt {
 		this.collector = collector;
 		this.name = context.getThisComponentId();
 		this.id = context.getThisTaskId();
+		
 
 
 	}

@@ -72,7 +72,7 @@ public class LineReaderSpout implements IRichSpout {
 		BufferedReader reader = new BufferedReader(fileReader);
 		try {
 			while ((str = reader.readLine()) != null) {
-				this.collector.emit(new Values(str), str);
+				this.collector.emit(new Values(str), str); // relability is set to at least once by providing messageid str
 			
 			}
 		} catch (Exception e) {

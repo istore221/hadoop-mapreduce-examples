@@ -46,7 +46,8 @@ class HelloStrom
     		config.put("inputFile", args[0]);
     		config.setDebug(true);
     		config.setMaxSpoutPending(5); // This value puts a limit on how many tuples can be in flight
-    		config.setNumWorkers(3);
+    		
+    		//config.setNumWorkers(3); // //Number of working nodes 
     		
     		
     		
@@ -55,12 +56,14 @@ class HelloStrom
     		builder.setSpout("line-reader-spout", new LineReaderSpout(),1); // only need 1 instance of spouts
     		
     		builder.setBolt("word-spitter", new WordSpitterBolt(),2)
-    		.shuffleGrouping("line-reader-spout"); // bolt (2 instances) need data from word-splitter spout in random way
+    		.shuffleGrouping("line-reader-spout"); // bolt (2 instances # executers) need data from word-splitter spout in random way
     		
     		
     		builder.setBolt("word-counter", new WordCounterBolt(),2)
-    		.fieldsGrouping("word-spitter", new Fields("word"));
+    		.fieldsGrouping("word-spitter", new Fields("word"))
+    		.setNumTasks(4);
     		
+    		    		
     		
     		
 
@@ -76,6 +79,44 @@ class HelloStrom
     	    Thread.sleep(5000);
     	    cluster.killTopology("wordCounter");
     	    cluster.shutdown();
+    	    
+    	    /*
+    	     *  	=====================without number of tasks in word-counter bolt==================================================
+			 
+    	     * 
+    	     *  -- Word Counter Bolt [ Component Id = word-counter - Task Id = 3]
+			tell : 1
+			people : 3
+			
+			 -- Word Counter Bolt [ Component Id = word-counter - Task Id = 4]
+			some : 1
+			will : 2
+			whatever : 1
+			they : 2
+			
+			=====================with number of tasks = 4 in word-counter bolt==================================================
+			
+			 -- Word Counter Bolt [ Component Id = word-counter - Task Id = 4]
+			will : 2
+			whatever : 1
+			
+			-- Word Counter Bolt [ Component Id = word-counter - Task Id = 3]
+			tell : 1
+			
+			 -- Word Counter Bolt [ Component Id = word-counter - Task Id = 5]
+			people : 3
+			
+			
+ 			-- Word Counter Bolt [ Component Id = word-counter - Task Id = 6]
+			some : 1
+			they : 2
+			
+			this setting will support up to scale up to  4 executers without shutting down the topology.
+			
+			
+			
+    	     * 
+    	     */
     	
     }
 }
